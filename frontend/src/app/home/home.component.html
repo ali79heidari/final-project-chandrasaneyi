@@ -1,0 +1,66 @@
+<div class="container" dir="rtl">
+  <header class="header">
+    <h1>تشخیص ناهنجاری‌های ریوی</h1>
+    <p class="subtitle">سیستم هوش مصنوعی قابل تفسیر برای تصاویر سی‌تی اسکن و ایکس‌ری قفسه سینه</p>
+  </header>
+
+  <main class="main-content">
+    
+    <!-- Upload Section -->
+    <div class="card upload-card" *ngIf="!prediction" @fadeIn>
+      <div class="upload-area" (click)="fileInput.click()" [class.has-image]="imagePreview">
+        <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" hidden>
+        
+        <div *ngIf="!imagePreview" class="upload-placeholder">
+          <div class="icon">☁️</div>
+          <h3>برای آپلود تصویر سی‌تی اسکن یا ایکس‌ری کلیک کنید</h3>
+          <p>فرمت‌های پشتیبانی شده: JPG, PNG, JPEG</p>
+        </div>
+
+        <img *ngIf="imagePreview" [src]="imagePreview" class="preview-image" alt="پیش‌نمایش">
+      </div>
+
+      <div class="actions" *ngIf="selectedFile">
+        <button class="btn btn-primary" (click)="uploadAndPredict()" [disabled]="loading">
+          <span *ngIf="!loading">تحلیل تصویر ✨</span>
+          <span *ngIf="loading" class="loader"></span>
+        </button>
+      </div>
+      
+      <div class="error" *ngIf="error">{{ error }}</div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="results-container" *ngIf="prediction" @fadeIn>
+      <button class="btn btn-secondary back-btn" (click)="reset()">← تحلیل تصویر جدید</button>
+
+      <div class="result-card">
+        <div class="image-comparison">
+          <div class="img-box">
+            <h4>تصویر اصلی</h4>
+            <img [src]="'data:image/png;base64,' + prediction.original_image_base64" alt="اصلی">
+          </div>
+          <div class="img-box heatmap">
+            <h4>توجه هوش مصنوعی (Grad-CAM)</h4>
+            <img [src]="'data:image/png;base64,' + prediction.heatmap_base64" alt="نقشه حرارتی">
+          </div>
+        </div>
+
+        <div class="diagnosis-info" [class.danger]="prediction.prediction_class !== 'Normal'" [class.success]="prediction.prediction_class === 'Normal'">
+          <h2>تشخیص: {{ prediction.prediction_class }}</h2>
+          <div class="confidence-bar">
+            <span>اطمینان: {{ (prediction.confidence * 100) | number:'1.1-2' }}%</span>
+            <div class="progress">
+              <div class="progress-fill" [style.width]="(prediction.confidence * 100) + '%'"></div>
+            </div>
+          </div>
+          <p class="explanation">
+            هوش مصنوعی مناطق مشکوک را در نقشه حرارتی مشخص کرده است.
+            <span *ngIf="prediction.prediction_class !== 'Normal'">لطفاً برای تایید نهایی با رادیولوژیست مشورت کنید.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
