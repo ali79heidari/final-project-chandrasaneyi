@@ -1,61 +1,68 @@
-# Lung Abnormality Identification System with Explainable AI
+# سیستم هوشمند تشخیص ناهنجاری‌های ریوی با هوش مصنوعی تفسیرپذیر
 
-This project is a comprehensive AI framework for detecting lung abnormalities from Chest CT scans and X-Ray images. It includes a Python FastAPI backend with a Deep Learning model (ResNet50) and a mock Grad-CAM implementation for X-AI, and an Angular frontend for the user interface.
+این پروژه یک چارچوب جامع هوش مصنوعی برای تشخیص ناهنجاری‌های ریوی از تصاویر سی‌تی اسکن (CT Scan) و اشعه ایکس (X-Ray) است. این سیستم با استفاده از یک مدل یادگیری عمیق (ResNet50) و یک پیاده‌سازی (Grad-CAM) برای هوش مصنوعی تفسیرپذیر (X-AI)، به کاربران کمک می‌کند تا علاوه بر تشخیص بیماری، نواحی درگیر در تصویر را نیز مشاهده کنند.
 
-## Project Structure
+## 🚀 امکانات کلیدی
 
-- `backend/`: FastAPI application, AI Model, and Logic.
-- `frontend/`: Angular Web Application.
+### 🧠 هوش مصنوعی و پردازش
 
-## Prerequisites
+- **تشخیص دقیق بیماری‌ها**: قابلیت تشخیص دسته‌های مختلف شامل:
+  - سالم (Normal)
+  - کووید-۱۹ (COVID-19)
+  - ذات‌الریه (Pneumonia)
+  - کدورت ریه (Lung Opacity)
+- **هوش مصنوعی تفسیرپذیر (X-AI)**: نمایش "نقشه حرارتی" (Heatmap) روی تصویر برای نشان دادن نواحی که مدل بر اساس آن‌ها تصمیم گرفته است.
+- **امتیاز اطمینان (Confidence Score)**: نمایش میزان اطمینان مدل به پیش‌بینی انجام شده به صورت درصد.
 
-- **Python 3.8+**
-- **Node.js 18+** and **npm**
+### 💻 رابط کاربری (Frontend)
 
-## Setup & Running
+- **بارگذاری آسان تصویر**: قابلیت کشیدن و رها کردن (Drag & Drop) تصاویر پزشکی برای تحلیل فوری.
+- **مدیریت دیتاست**: قابلیت اتصال به دیتاست‌های Kaggle، نمایش لیست تصاویر، و صفحه‌بندی (Pagination) برای مرور آسان داده‌ها.
+- **تحلیل مستقیم از دیتاست**: امکان انتخاب یک تصویر از لیست دیتاست و ارسال مستقیم آن برای تحلیل.
+- **رابط کاربری مدرن و واکنش‌گرا**: طراحی زیبا با انیمیشن‌های نرم و پشتیبانی از زبان فارسی.
 
-### 1. Backend (Python)
+### ⚙️ سمت سرور (Backend)
 
-Navigate to the `backend` directory and install dependencies:
+- **معماری سریع و سبک**: استفاده از فریم‌ورک FastAPI برای پاسخ‌دهی سریع به درخواست‌ها.
+- **پردازش امن**: پردازش تصاویر در حافظه بدون ذخیره‌سازی دائمی آن‌ها.
+- **معماری ماژولار**: جداسازی منطق مدل، بارگذاری داده‌ها و API.
+
+## 🛠 تکنولوژی‌های استفاده شده
+
+- **Backend**: Python, FastAPI, PyTorch/TensorFlow (ResNet50), Pillow, NumPy
+- **Frontend**: Angular 18+, TypeScript, CSS3 (Modern UI), RxJS
+
+## 📦 راهنمای نصب و اجرا
+
+### پیش‌نیازها
+
+- Python 3.8 یا بالاتر
+- Node.js 18+ و npm
+
+### ۱. اجرای بخش سرور (Backend)
+
+وارد پوشه `backend` شوید و دستورات زیر را اجرا کنید:
 
 ```bash
 cd backend
 pip install -r requirements.txt
-```
-
-Start the FastAPI server:
-
-```bash
 python main.py
 ```
 
-> The server will start on `http://localhost:8000`.
+سرور روی آدرس `http://localhost:8000` اجرا خواهد شد.
 
-### 2. Frontend (Angular)
+### ۲. اجرای بخش کاربری (Frontend)
 
-Navigate to the `frontend` directory and install dependencies:
+وارد پوشه `frontend` شوید و دستورات زیر را اجرا کنید:
 
 ```bash
 cd frontend
 npm install
-```
-
-Start the Angular development server:
-
-```bash
 npx ng serve
 ```
 
-> The application will be available at `http://localhost:4200`.
+برنامه روی آدرس `http://localhost:4200` در دسترس خواهد بود.
 
-## Features
+## ⚠️ سلب مسئولیت
 
-- **Drag & Drop Upload**: Easy interface to analyze medical images.
-- **Deep Learning Model**: Uses a ResNet50 architecture for classification.
-- **Explainable AI (Grad-CAM)**: Visualizes the regions of the image that contributed to the prediction.
-- **Real-time Results**: Instant feedback with prediction confidence scores.
-- **Secure Handling**: Images are processed in memory and not permanently stored.
-
-## Disclaimer
-
-This is a **demonstration prototype**. The AI model uses pre-trained ImageNet weights and a simulated heatmap for demonstration purposes. For clinical use, the model must be trained on a validated medical dataset (e.g., COVID-19 Radiography Database).
+این پروژه یک **نسخه نمایشی (Prototype)** است. مدل هوش مصنوعی ممکن است از داده‌های شبیه‌سازی شده یا وزن‌های عمومی استفاده کند و "نقشه حرارتی" در برخی موارد ممکن است برای نمایش قابلیت‌ها شبیه‌سازی شده باشد. این سیستم نباید جایگزین تشخیص پزشک متخصص شود.
